@@ -6,113 +6,296 @@
     <title>Subhashree Mohan Swain - Portfolio</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <style>
+        :root {
+            --primary: #00d4ff;
+            --secondary: #1a1a3d;
+            --accent: #ff007a;
+            --bg-light: #f0f4f8;
+            --bg-dark: #0a0a23;
+            --text-light: #ffffff;
+            --text-dark: #d9e2ec;
+        }
+
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
-            color: #333;
-            overflow-x: hidden;
-        }
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, var(--bg-dark), var(--secondary));
+    color: var(--text-light);
+    overflow-x: hidden;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Cpath fill="%23ffffff10" d="M0 0h10v10H0zm20 20h10v10H20zm20 20h10v10H40zm20 20h10v10H60zm20 20h10v10H80z"/%3E%3C/svg%3E');
+    opacity: 0.1;
+    z-index: -1;
+}
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=3174&auto=format&fit=crop') no-repeat center/cover;
+    color: var(--text-light);
+    position: relative;
+    padding: 1rem;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(10, 10, 35, 0.8), rgba(0, 212, 255, 0.2));
+    z-index: 1;
+}
+
         .navbar {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 1rem 2rem;
+            background: rgba(10, 10, 35, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-bottom: 1px solid var(--primary);
         }
+
         .navbar-brand, .nav-link {
-            color: #fff !important;
-            transition: color 0.3s;
+            color: var(--text-light) !important;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s, transform 0.3s;
+            font-size: 1.2rem;
         }
-        .nav-link:hover {
-            color: #00d4ff !important;
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary) !important;
+            transform: translateY(-2px);
         }
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: url('https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?q=80&w=3174&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center/cover;
-            color: #fff;
-            position: relative;
+
+        .navbar-toggler {
+            border: none;
         }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 1;
-        }
+
+        
+
         .hero-content {
             z-index: 2;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideIn 1s forwards 0.5s;
         }
+
         .profile-pic {
             border-radius: 50%;
-            border: 5px solid #fff;
-            width: 200px;
-            height: 200px;
+            border: 8px solid var(--primary);
+            width: 150px;
+            height: 150px;
             object-fit: cover;
-            transition: transform 0.5s;
+            transition: transform 0.5s, box-shadow 0.5s;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
+
         .profile-pic:hover {
-            transform: scale(1.1);
+            transform: rotate(5deg) scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.8);
         }
+
         .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: #007bff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
             text-align: center;
             position: relative;
+            text-transform: uppercase;
         }
+
         .section-title::after {
             content: '';
             width: 50px;
             height: 3px;
-            background: #007bff;
+            background: var(--accent);
             position: absolute;
             bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
+            transition: width 0.3s;
         }
+
+        .section-title:hover::after {
+            width: 80px;
+        }
+
         .card {
+            background: rgba(255, 255, 255, 0.05);
             border: none;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.4s, box-shadow 0.4s;
+            color: var(--text-dark);
+            padding: 1rem;
+            margin-bottom: 1rem;
         }
+
         .card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
         }
+
+        .card h4, .card h5 {
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+        }
+
         .btn-custom {
-            background: #007bff;
-            color: #fff;
-            border-radius: 25px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: var(--text-light);
+            border-radius: 20px;
             padding: 10px 20px;
-            transition: background 0.3s;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background 0.3s, transform 0.3s;
+            box-shadow: 0 3px 10px rgba(0, 212, 255, 0.4);
+            font-size: 1rem;
         }
+
         .btn-custom:hover {
-            background: #0056b3;
-            color: #fff;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.6);
         }
+
         footer {
-            background: #333;
-            color: #fff;
+            background: var(--bg-dark);
+            color: var(--text-light);
             padding: 2rem 0;
             text-align: center;
+            border-top: 1px solid var(--primary);
         }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        @keyframes slideIn {
+            to { transform: translateY(0); opacity: 1; }
+        }
+
         .fade-in {
             opacity: 0;
-            animation: fadeIn 1s forwards;
+            transform: translateY(30px);
+            transition: opacity 0.8s, transform 0.8s;
         }
-        @keyframes fadeIn {
-            to { opacity: 1; }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        a:hover::after {
+            width: 100%;
+        }
+
+        /* Media Queries */
+        @media (min-width: 768px) {
+            .navbar {
+                padding: 1.5rem 2rem;
+            }
+            .navbar-brand, .nav-link {
+                font-size: 1.5rem;
+            }
+            .hero {
+                padding: 2rem;
+            }
+            .profile-pic {
+                width: 220px;
+                height: 220px;
+            }
+            .section-title {
+                font-size: 2.8rem;
+            }
+            .section-title::after {
+                width: 60px;
+                height: 4px;
+            }
+            .section-title:hover::after {
+                width: 100px;
+            }
+            .card {
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+            .card h4, .card h5 {
+                font-size: 1.5rem;
+            }
+            .btn-custom {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+            }
+            .row > div {
+                padding: 0 1rem;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .hero-content {
+                max-width: 800px;
+            }
+            .card {
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            }
+            .container {
+                max-width: 960px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1140px;
+            }
+            .profile-pic {
+                width: 250px;
+                height: 250px;
+            }
         }
     </style>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Navbar -->
@@ -135,20 +318,20 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content fade-in">
+        <div class="hero-content">
             <img src="https://avatars.githubusercontent.com/u/88978420?v=4" alt="Profile Picture" class="profile-pic mb-4">
             <h1 class="display-4 fw-bold">Subhashree Mohan Swain</h1>
-            <p class="lead">Software Engineer | Fintech Innovator | Cloud Enthusiast</p>
-            <a href="#contact" class="btn btn-custom mt-3">Get in Touch</a>
+            <p class="lead">Software Engineer | Fintech Innovator | Cloud Architect</p>
+            <a href="#contact" class="btn btn-custom mt-3">Connect with Me</a>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-5">
+    <section id="about" class="py-4">
         <div class="container">
             <h2 class="section-title">About Me</h2>
             <div class="row fade-in">
-                <div class="col-md-8 mx-auto text-center">
+                <div class="col-12 col-md-8 mx-auto text-center">
                     <p>I’m a passionate Software Engineer specializing in scalable APIs, cloud architecture, and fintech solutions. With a B.Tech in Electronics and Communication Engineering from VSSUT, I thrive on solving complex problems and driving innovation at IserveU.</p>
                 </div>
             </div>
@@ -156,12 +339,12 @@
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="py-5 bg-light">
+    <section id="experience" class="py-4">
         <div class="container">
             <h2 class="section-title">Experience & Achievements</h2>
-            <div class="row fade-in">
-                <div class="col-md-6 mb-4">
-                    <div class="card p-4">
+            <div class="row">
+                <div class="col-12 col-md-6 mb-4 fade-in">
+                    <div class="card p-3">
                         <h4>Software Engineer - IserveU</h4>
                         <p class="text-muted">June 2024 – Present</p>
                         <ul>
@@ -171,8 +354,8 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card p-4">
+                <div class="col-12 col-md-6 mb-4 fade-in">
+                    <div class="card p-3">
                         <h4>Software Engineer Intern - IserveU</h4>
                         <p class="text-muted">Dec 2023 – June 2024</p>
                         <ul>
@@ -186,26 +369,26 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-5">
+    <section id="projects" class="py-4">
         <div class="container">
             <h2 class="section-title">Projects</h2>
-            <div class="row fade-in">
-                <div class="col-md-4 mb-4">
-                    <div class="card p-4">
+            <div class="row">
+                <div class="col-12 col-md-4 mb-4 fade-in">
+                    <div class="card p-3">
                         <h5>iSwara – Payment Soundbox</h5>
                         <p>Built scalable backend APIs for real-time transactions, showcased at Global Fintech Fest.</p>
                         <p><strong>Tech:</strong> Node.js, MQTT, PostgreSQL</p>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card p-4">
+                <div class="col-12 col-md-4 mb-4 fade-in">
+                    <div class="card p-3">
                         <h5>Disease Diagnosis System</h5>
                         <p>Sensor-driven Ayurvedic diagnosis tool with real-time analysis.</p>
                         <p><strong>Tech:</strong> Arduino, SQL, MongoDB</p>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card p-4">
+                <div class="col-12 col-md-4 mb-4 fade-in">
+                    <div class="card p-3">
                         <h5>Transaction Mapping System</h5>
                         <p>Automated merchant-device registration with Kubernetes deployment.</p>
                         <p><strong>Tech:</strong> Node.js, ClickHouse</p>
@@ -216,13 +399,13 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-5 bg-light">
+    <section id="contact" class="py-4">
         <div class="container">
             <h2 class="section-title">Contact Me</h2>
             <div class="row fade-in">
-                <div class="col-md-6 mx-auto text-center">
+                <div class="col-12 col-md-6 mx-auto text-center">
                     <p>Email: <a href="mailto:subhashreesnohanswain@gmail.com">subhashreesnohanswain@gmail.com</a></p>
-                    <p>Phone: +91-8260532791</p>
+                    <p>Phone: <a href="tel:+918260532791">+91-8260532791</a></p>
                     <p>LinkedIn: <a href="https://linkedin.com/in/subhashreemohanswain" target="_blank">subhashreemohanswain</a></p>
                 </div>
             </div>
@@ -231,7 +414,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Subhashree Mohan Swain. All Rights Reserved.</p>
+        <p>© 2025 Subhashree Mohan Swain. All Rights Reserved.</p>
     </footer>
 
     <!-- Bootstrap JS and Popper.js -->
@@ -243,18 +426,39 @@
         document.querySelectorAll('.nav-link').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+                document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+                this.classList.add('active');
             });
         });
 
-        // Fade-in animation on scroll
+        // Intersection Observer for fade-in animations
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Navbar active link on scroll
         window.addEventListener('scroll', () => {
-            document.querySelectorAll('.fade-in').forEach(el => {
-                const rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight - 100) {
-                    el.style.animation = 'fadeIn 1s forwards';
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
                 }
             });
         });
