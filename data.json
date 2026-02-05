@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "category": "About",
+        "content": "Subhashree Mohan Swain is a Software Engineer focused on developing scalable and robust backend services for fintech applications. he has a B.Tech in Electronics and Communication Engineering from VSSUT.",
+        "keywords": "bio, profile, background, subhashree, about"
+    },
+    {
+        "id": 2,
+        "category": "Experience",
+        "content": "Currently a Software Engineer at IserveU since June 2024. Refactored Soundbox API system (1M+ daily transactions), cutting response times by 30%.",
+        "keywords": "work, job, experience, iserveu, soundbox, transactions"
+    },
+    {
+        "id": 3,
+        "category": "Experience",
+        "content": "Software Engineer Intern at IserveU (Dec 2023 - May 2024). Developed Campaign Play APIs for IoT notification systems and MQTT-based eventstream services.",
+        "keywords": "internship, intern, iserveu, iot, mqtt, notifications"
+    },
+    {
+        "id": 4,
+        "category": "Skills",
+        "content": "Technical Skills: JavaScript (ES6+), Node.js, Express.js, React, GraphQL, REST, Java, Python.",
+        "keywords": "skills, coding, languages, tech, stacks"
+    },
+    {
+        "id": 5,
+        "category": "Cloud & DB",
+        "content": "Cloud & Databases: GCP, Docker, Kubernetes, PostgreSQL, ClickHouse, Redis, MongoDB.",
+        "keywords": "cloud, database, db, gcp, docker, k8s, kubernetes"
+    },
+    {
+        "id": 6,
+        "category": "Projects",
+        "content": "GraphQL Trans Filter: Modular backend filters for detailed queries, integrated with MQTT alerts using Node.js.",
+        "keywords": "projects, graphql, filter, mqtt"
+    },
+    {
+        "id": 7,
+        "category": "Projects",
+        "content": "Payment Hub: End-to-end payment orchestration with Hyperswitch integration and real-time status updates.",
+        "keywords": "projects, payment, hub, hyperswitch"
+    },
+    {
+        "id": 8,
+        "category": "Projects",
+        "content": "Camunda Middleware: Data ingestion service syncing workflow states with BigQuery for real-time analytics.",
+        "keywords": "projects, camunda, middleware, bigquery"
+    },
+    {
+        "id": 9,
+        "category": "Education",
+        "content": "B.Tech in Electronics and Communication Engineering from Veer Surendra Sai University of Technology (2020-2024).",
+        "keywords": "education, college, university, vssut, degree"
+    },
+    {
+        "id": 10,
+        "category": "Contact",
+        "content": "Email: subhashreemohanswain@gmail.com. LinkedIn: https://linkedin.com/in/subhashree-mohan-swain-158a85204. GitHub: subha-90.",
+        "keywords": "contact, email, linkedin, github, social"
+    }
+]
