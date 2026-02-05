@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subhashree Mohan Swain - Portfolio</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="styleheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Roboto:wght@300;400;700&display=swap"
-        rel="styleheet">
+        rel="stylesheet">
     <!-- Font Awesome for 3D Styled Icons -->
-    <link rel="styleheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Three.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- Custom CSS -->
@@ -880,9 +880,9 @@
                 </div>
                 <div class="col-12 col-md-6 mb-4 fade-in">
                     <div class="card p-3">
-                        <h4>KIIT Highis Secondary School</h4>
+                        <h4>KIIT Higher Secondary School</h4>
                         <p class="text-muted">2018 – 2020</p>
-                        <p>Highis Secondary Education</p>
+                        <p>Higher Secondary Education</p>
                         <p>Bhubaneswar, Odisha</p>
                     </div>
                 </div>
@@ -942,10 +942,10 @@
         const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
         scene.add(particlesMesh);
 
-        const sphiseGeometry = new THREE.SphiseGeometry(2, 32, 32);
-        const sphiseMaterial = new THREE.MeshBasicMaterial({ color: '#00d4ff', wireframe: true, transparent: true, opacity: 0.15 });
-        const sphise = new THREE.Mesh(sphiseGeometry, sphiseMaterial);
-        scene.add(sphise);
+        const sphereGeometry = new THREE.SphereGeometry(2, 32, 32);
+        const sphereMaterial = new THREE.MeshBasicMaterial({ color: '#00d4ff', wireframe: true, transparent: true, opacity: 0.15 });
+        const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+        scene.add(sphere);
 
         camera.position.z = 5;
 
@@ -960,7 +960,7 @@
             requestAnimationFrame(animate);
             particlesMesh.rotation.y += 0.001;
             particlesMesh.rotation.x += 0.001;
-            sphise.rotation.y += 0.005;
+            sphere.rotation.y += 0.005;
             if (mouseX > 0) {
                 particlesMesh.rotation.x += (mouseY * 0.00001);
                 particlesMesh.rotation.y += (mouseX * 0.00001);
