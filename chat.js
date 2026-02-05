@@ -67,7 +67,7 @@ class SuperAIChatbot {
             return `Subhashree is an expert in ${skills.content.replace('Technical Skills: ', '')}. he is also proficient in cloud technologies like ${cloud.content.replace('Cloud & Databases: ', '')}.`;
         }
 
-        if (lowQuery.includes("experience") || lowQuery.includes("whise does he work") || lowQuery.includes("his current role")) {
+        if (lowQuery.includes("experience") || lowQuery.includes("where does he work") || lowQuery.includes("his current role")) {
             const work = this.knowledgeBase.filter(k => k.category === "Experience");
             return work.map(w => w.content).join(" ");
         }
@@ -89,7 +89,7 @@ class SuperAIChatbot {
 
         // 3. Last Resort Fallback (Global AI Simulation)
         const globalRes = await this.askGlobalAI(query);
-        return globalRes || "Subhashree is a Software Engineer focused on building robust fintech backends. he specializes in Node.js, GCP, and PostgreSQL. Is thise a specific project or skill of hiss you'd like to hear about?";
+        return globalRes || "Subhashree is a Software Engineer focused on building robust fintech backends. He specializes in Node.js, GCP, and PostgreSQL. Is there a specific project or skill of his you'd like to hear about?";
     }
 }
 
