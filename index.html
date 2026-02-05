@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subhashree Mohan Swain - Portfolio</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="styleheet">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Roboto:wght@300;400;700&display=swap"
+        rel="styleheet">
+    <!-- Font Awesome for 3D Styled Icons -->
+    <link rel="styleheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Three.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- Custom CSS -->
     <style>
         :root {
@@ -21,49 +28,69 @@
         }
 
         body {
-    font-family: 'Roboto', sans-serif;
-    background: linear-gradient(135deg, var(--bg-dark), var(--secondary));
-    color: var(--text-light);
-    overflow-x: hidden;
-    position: relative;
-    margin: 0;
-    padding: 0;
-}
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark), var(--secondary));
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+            margin: 0;
+            padding: 0;
+        }
 
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Cpath fill="%23ffffff10" d="M0 0h10v10H0zm20 20h10v10H20zm20 20h10v10H40zm20 20h10v10H60zm20 20h10v10H80z"/%3E%3C/svg%3E');
-    opacity: 0.1;
-    z-index: -1;
-}
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Cpath fill="%23ffffff10" d="M0 0h10v10H0zm20 20h10v10H20zm20 20h10v10H40zm20 20h10v10H60zm20 20h10v10H80z"/%3E%3C/svg%3E');
+            opacity: 0.1;
+            z-index: -1;
+        }
 
-.hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=3174&auto=format&fit=crop') no-repeat center/cover;
-    color: var(--text-light);
-    position: relative;
-    padding: 1rem;
-}
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            /* Aligned to left of content area */
+            text-align: left;
+            /* Text left aligned */
+            background: transparent;
+            color: var(--text-light);
+            position: relative;
+            padding: 1rem 10% !important;
+            /* Some padding from the sidebar */
+            overflow: hidden;
+        }
 
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(10, 10, 35, 0.8), rgba(0, 212, 255, 0.2));
-    z-index: 1;
-}
+        #hero-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(10, 10, 35, 0.4) 0%, rgba(10, 10, 35, 0.9) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
 
         .navbar {
             background: rgba(10, 10, 35, 0.95);
@@ -72,7 +99,8 @@ body::before {
             border-bottom: 1px solid var(--primary);
         }
 
-        .navbar-brand, .nav-link {
+        .navbar-brand,
+        .nav-link {
             color: var(--text-light) !important;
             font-family: 'Orbitron', sans-serif;
             text-transform: uppercase;
@@ -81,105 +109,267 @@ body::before {
             font-size: 1.2rem;
         }
 
-        .nav-link:hover, .nav-link.active {
-            color: var(--primary) !important;
-            transform: translateY(-2px);
-        }
-
-        .navbar-toggler {
-            border: none;
-        }
-
-        
-
-        .hero-content {
-            z-index: 2;
-            transform: translateY(20px);
-            opacity: 0;
-            animation: slideIn 1s forwards 0.5s;
-        }
-
-        .profile-pic {
-            border-radius: 50%;
-            border: 8px solid var(--primary);
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            transition: transform 0.5s, box-shadow 0.5s;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
-        }
-
-        .profile-pic:hover {
-            transform: rotate(5deg) scale(1.1);
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.8);
-        }
-
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
             color: var(--primary);
             text-align: center;
             position: relative;
             text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        .section-title::after {
-            content: '';
-            width: 50px;
-            height: 3px;
-            background: var(--accent);
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            transition: width 0.3s;
+        /* Desktop Sidebar Styles */
+        @media (min-width: 992px) {
+            .navbar {
+                width: 250px;
+                height: 100vh;
+                position: fixed;
+                left: 0;
+                top: 0;
+                flex-direction: column;
+                background: rgba(10, 10, 35, 0.95);
+                border-right: 1px solid var(--primary);
+                border-bottom: none;
+                padding: 2rem 1rem;
+                justify-content: flex-start !important;
+                z-index: 1100;
+            }
+
+            .navbar-nav {
+                flex-direction: column !important;
+                width: 100%;
+                margin-top: 3rem;
+            }
+
+            .nav-item {
+                margin-bottom: 1.5rem;
+            }
+
+            .nav-link {
+                text-align: left;
+                font-family: 'Orbitron', sans-serif;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-size: 0.9rem;
+            }
+
+            .navbar-brand {
+                margin: 0;
+                text-align: left;
+                font-size: 1.8rem;
+                font-family: 'Orbitron', sans-serif;
+                font-weight: 800;
+                line-height: 1.2;
+                text-transform: uppercase;
+                display: block;
+                color: var(--primary) !important;
+                letter-spacing: 2px;
+            }
+
+            .navbar-brand span {
+                display: block;
+            }
+
+            main-content {
+                margin-left: 250px;
+            }
+
+            .hero {
+                margin-left: 250px;
+            }
+
+            section {
+                padding-left: 270px !important;
+                padding-right: 20px !important;
+            }
+
+            .progress-container {
+                left: 250px;
+                width: calc(100% - 250px);
+            }
         }
 
-        .section-title:hover::after {
-            width: 80px;
+        /* Mobile Adjustments */
+        @media (max-width: 991px) {
+            .navbar {
+                background: rgba(10, 10, 35, 1) !important;
+                border-bottom: 2px solid var(--primary);
+            }
+
+            .hero {
+                justify-content: center !important;
+                text-align: center !important;
+                padding: 5rem 1rem !important;
+                margin-left: 0 !important;
+            }
+
+            .navbar-brand {
+                font-size: 1rem !important;
+                letter-spacing: 1px;
+                display: flex !important;
+                align-items: center;
+                white-space: nowrap;
+                margin: 0 !important;
+            }
+
+            .navbar-toggler {
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                padding: 5px;
+            }
+
+            .navbar-toggler-icon {
+                filter: brightness(0) invert(1) drop-shadow(0 0 5px var(--primary));
+            }
+
+            section {
+                padding: 4rem 1.5rem !important;
+            }
+
+            .navbar-collapse {
+                background: rgba(10, 10, 35, 0.98);
+                padding: 1rem;
+                border-radius: 10px;
+                margin-top: 10px;
+                border: 1px solid rgba(0, 212, 255, 0.2);
+            }
         }
 
         .card {
             background: rgba(255, 255, 255, 0.05);
-            border: none;
+            border: 1px solid rgba(0, 212, 255, 0.2);
             border-radius: 15px;
             backdrop-filter: blur(10px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
             transition: transform 0.4s, box-shadow 0.4s;
-            color: var(--text-dark);
-            padding: 1rem;
+            color: var(--text-light);
+            padding: 1.5rem;
             margin-bottom: 1rem;
+            position: relative;
         }
 
         .card:hover {
             transform: translateY(-10px);
             box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+            border-color: var(--primary);
         }
 
-        .card h4, .card h5 {
+        /* Scroll Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 2000;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            width: 0%;
+            transition: width 0.1s ease;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        /* 3D Icon Styling */
+        .icon-3d {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: block;
+            filter: drop-shadow(0 0 10px var(--primary));
+            transition: transform 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotateX(0);
+            }
+
+            50% {
+                transform: translateY(-10px) rotateX(10deg);
+            }
+        }
+
+        .hero-content {
+            z-index: 2;
+            position: relative;
+        }
+
+        .profile-pic {
+            border-radius: 50%;
+            border: 8px solid var(--primary);
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            transition: transform 0.5s, box-shadow 0.5s;
+            box-shadow: 0 0 30px var(--primary);
+        }
+
+        .typewriter {
+            display: inline-block;
+            overflow: hidden;
+            border-right: .15em solid var(--primary);
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: var(--primary);
+            }
+        }
+
+        .card h4,
+        .card h5 {
             color: var(--primary);
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
+            margin-top: 0.5rem;
         }
 
         .btn-custom {
-            background: linear-gradient(90deg, var(--primary), var(--accent));
+            background: linear-gradient(45deg, #00d4ff, #ff007a);
             color: var(--text-light);
-            border-radius: 20px;
-            padding: 10px 20px;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-family: 'Orbitron', sans-serif;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: background 0.3s, transform 0.3s;
-            box-shadow: 0 3px 10px rgba(0, 212, 255, 0.4);
-            font-size: 1rem;
+            letter-spacing: 2px;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            transition: all 0.3s ease;
         }
 
         .btn-custom:hover {
-            background: linear-gradient(90deg, var(--accent), var(--primary));
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.6);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 122, 0.8);
+            color: white;
         }
 
         footer {
@@ -197,7 +387,10 @@ body::before {
         }
 
         @keyframes slideIn {
-            to { transform: translateY(0); opacity: 1; }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .fade-in {
@@ -238,38 +431,82 @@ body::before {
             .navbar {
                 padding: 1.5rem 2rem;
             }
-            .navbar-brand, .nav-link {
-                font-size: 1.5rem;
+
+            .navbar-brand,
+            .nav-link {
+                font-size: 1rem;
             }
+
+            .typing-dot {
+                display: inline-block;
+                width: 4px;
+                height: 4px;
+                border-radius: 50%;
+                background: var(--primary);
+                margin: 0 1px;
+                animation: pulse 1s infinite;
+            }
+
+            .typing-dot:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+
+            .typing-dot:nth-child(3) {
+                animation-delay: 0.4s;
+            }
+
+            @keyframes pulse {
+
+                0%,
+                100% {
+                    opacity: 0.3;
+                    transform: scale(1);
+                }
+
+                50% {
+                    opacity: 1;
+                    transform: scale(1.2);
+                }
+            }
+
             .hero {
                 padding: 2rem;
             }
+
             .profile-pic {
                 width: 220px;
                 height: 220px;
             }
+
             .section-title {
                 font-size: 2.8rem;
             }
+
             .section-title::after {
                 width: 60px;
                 height: 4px;
             }
+
             .section-title:hover::after {
                 width: 100px;
             }
+
             .card {
                 padding: 1.5rem;
                 margin-bottom: 1.5rem;
             }
-            .card h4, .card h5 {
+
+            .card h4,
+            .card h5 {
                 font-size: 1.5rem;
             }
+
             .btn-custom {
                 padding: 12px 25px;
                 font-size: 1.1rem;
             }
-            .row > div {
+
+            .row>div {
                 padding: 0 1rem;
             }
         }
@@ -278,9 +515,11 @@ body::before {
             .hero-content {
                 max-width: 800px;
             }
+
             .card {
                 box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             }
+
             .container {
                 max-width: 960px;
             }
@@ -290,39 +529,171 @@ body::before {
             .container {
                 max-width: 1140px;
             }
+
             .profile-pic {
                 width: 250px;
                 height: 250px;
             }
         }
+
+        .nav-link.active {
+            color: var(--primary) !important;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        /* Terminal Chatbot Styles */
+        #chat-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            z-index: 2000;
+            transition: transform 0.3s;
+        }
+
+        #chat-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        #chat-container {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            height: 450px;
+            background: rgba(10, 10, 35, 0.95);
+            border: 1px solid var(--primary);
+            border-radius: 15px;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 2000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        #chat-header {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #chat-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.9rem;
+            color: #d9e2ec;
+        }
+
+        #chat-input-area {
+            padding: 15px;
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+            display: flex;
+            gap: 10px;
+        }
+
+        #chat-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 5px;
+            color: white;
+            padding: 8px 12px;
+            flex-grow: 1;
+            outline: none;
+        }
+
+        .bot-msg {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .user-msg {
+            text-align: right;
+            margin-bottom: 15px;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Hide Scrollbar */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        body {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
     </style>
 </head>
-<body>
+
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70">
+    <!-- Scroll Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="scrollBar"></div>
+    </div>
+
+    <!-- Three.js Persistent Background -->
+    <canvas id="hero-canvas"></canvas>
+
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">Subhashree Mohan Swain</a>
+        <div
+            class="container container-nav d-flex flex-row flex-lg-column justify-content-between align-items-center align-items-lg-start h-100">
+            <a class="navbar-brand mb-lg-4" href="#">
+                <span>Subhashree</span>
+                <span>Mohan</span>
+                <span>Swain</span>
+            </a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+
+            <div class="collapse navbar-collapse w-100" id="navbarNav">
+                <ul class="navbar-nav w-100">
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
                     <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#certifications">Certifications</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <img src="https://avatars.githubusercontent.com/u/88978420?v=4" alt="Profile Picture" class="profile-pic mb-4">
+            <img src="https://avatars.githubusercontent.com/u/88978420?v=4" alt="Profile Picture"
+                class="profile-pic mb-4">
             <h1 class="display-4 fw-bold">Subhashree Mohan Swain</h1>
-            <p class="lead">Software Engineer | Fintech Innovator | Cloud Architect</p>
-            <a href="#contact" class="btn btn-custom mt-3">Connect with Me</a>
+            <p class="lead">Software Engineer | Backend Architect | Cloud & Fintech Specialist</p>
+            <a href="https://linkedin.com/in/subhashree-mohan-swain-158a85204" class="btn btn-custom mt-3">Connect with
+                Me</a>
         </div>
     </section>
 
@@ -332,7 +703,11 @@ body::before {
             <h2 class="section-title">About Me</h2>
             <div class="row fade-in">
                 <div class="col-12 col-md-8 mx-auto text-center">
-                    <p>I’m a passionate Software Engineer specializing in scalable APIs, cloud architecture, and fintech solutions. With a B.Tech in Electronics and Communication Engineering from VSSUT, I thrive on solving complex problems and driving innovation at IserveU.</p>
+                    <p>I am a Software Engineer focused on developing scalable and robust backend services for fintech
+                        applications. With a B.Tech in Electronics and Communication Engineering from VSSUT, I have a
+                        proven track record of reducing API latency by 30%, enabling 1M+ daily transactions, and
+                        improving data query speeds by 40%. I specialize in architecting microservices, automating
+                        deployments, and driving engineering excellence.</p>
                 </div>
             </div>
         </div>
@@ -344,24 +719,62 @@ body::before {
             <h2 class="section-title">Experience & Achievements</h2>
             <div class="row">
                 <div class="col-12 col-md-6 mb-4 fade-in">
-                    <div class="card p-3">
+                    <div class="card">
+                        <i class="fas fa-microchip icon-3d"></i>
                         <h4>Software Engineer - IserveU</h4>
                         <p class="text-muted">June 2024 – Present</p>
                         <ul>
-                            <li>Optimized Soundbox APIs, reducing latency by 30%.</li>
-                            <li>Deployed ClickHouse with 1-shard, 3-replica setup, boosting query speed by 50%.</li>
-                            <li>Secured transactions with SSL and Kubernetes deployment.</li>
+                            <li>Spearheaded refactoring of Soundbox API system (1M+ daily transactions), cutting
+                                response times by 30%.</li>
+                            <li>Engineered backend enhancements with PostgreSQL, Redis, and ClickHouse, boosting query
+                                efficiency by 40%.</li>
+                            <li>Designed GraphQL filtering service for multi-parameter audits, accelerating issue
+                                resolution by 35%.</li>
+                            <li>Orchestrated Kubernetes and SSL/TLS pipelines, maintaining 99.9% uptime and high
+                                security.</li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 mb-4 fade-in">
-                    <div class="card p-3">
+                    <div class="card">
+                        <i class="fas fa-user-graduate icon-3d"></i>
                         <h4>Software Engineer Intern - IserveU</h4>
-                        <p class="text-muted">Dec 2023 – June 2024</p>
+                        <p class="text-muted">Dec 2023 – May 2024</p>
                         <ul>
-                            <li>Built Soundbox Campaign Play App, increasing reach by 15%.</li>
-                            <li>Enhanced API performance with MQTT and Redis caching.</li>
+                            <li>Developed Campaign Play APIs for IoT notification systems, increasing engagement by 15%.
+                            </li>
+                            <li>Implemented MQTT-based eventstream services, reducing notification latency by 20%.</li>
+                            <li>Boosted API throughput by 25% through Redis caching and backend optimization.</li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-4">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="row">
+                <div class="col-12 col-md-4 mb-4 fade-in">
+                    <div class="card">
+                        <i class="fas fa-code icon-3d"></i>
+                        <h5>Languages</h5>
+                        <p>JavaScript (ES6+), Node.js, Express.js, React, GraphQL, REST</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4 fade-in">
+                    <div class="card">
+                        <i class="fas fa-cloud icon-3d"></i>
+                        <h5>Cloud & DB</h5>
+                        <p>GCP, Docker, Kubernetes, PostgreSQL, ClickHouse, Redis, MongoDB</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4 fade-in">
+                    <div class="card">
+                        <i class="fas fa-tools icon-3d"></i>
+                        <h5>Messaging & Tools</h5>
+                        <p>MQTT, Google Pub/Sub, BigQuery, Git, JIRA, Postman, Jenkins</p>
                     </div>
                 </div>
             </div>
@@ -374,24 +787,103 @@ body::before {
             <h2 class="section-title">Projects</h2>
             <div class="row">
                 <div class="col-12 col-md-4 mb-4 fade-in">
-                    <div class="card p-3">
-                        <h5>iSwara – Payment Soundbox</h5>
-                        <p>Built scalable backend APIs for real-time transactions, showcased at Global Fintech Fest.</p>
-                        <p><strong>Tech:</strong> Node.js, MQTT, PostgreSQL</p>
+                    <div class="card">
+                        <i class="fas fa-filter icon-3d"></i>
+                        <h5>GraphQL Trans Filter</h5>
+                        <p>Modular backend filters for detailed queries (ID, device, date), integrated with MQTT alerts.
+                        </p>
+                        <p><strong>Tech:</strong> GraphQL, MQTT, Node.js</p>
                     </div>
                 </div>
                 <div class="col-12 col-md-4 mb-4 fade-in">
-                    <div class="card p-3">
-                        <h5>Disease Diagnosis System</h5>
-                        <p>Sensor-driven Ayurvedic diagnosis tool with real-time analysis.</p>
-                        <p><strong>Tech:</strong> Arduino, SQL, MongoDB</p>
+                    <div class="card">
+                        <i class="fas fa-credit-card icon-3d"></i>
+                        <h5>Payment Hub</h5>
+                        <p>End-to-end payment orchestration with Hyperswitch integration and real-time status updates.
+                        </p>
+                        <p><strong>Tech:</strong> Node.js, Hyperswitch, React</p>
                     </div>
                 </div>
                 <div class="col-12 col-md-4 mb-4 fade-in">
+                    <div class="card">
+                        <i class="fas fa-project-diagram icon-3d"></i>
+                        <h5>Camunda Middleware</h5>
+                        <p>Data ingestion service syncing workflow states with BigQuery for real-time analytics.</p>
+                        <p><strong>Tech:</strong> Camunda Zeebe, BigQuery</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4 fade-in">
+                    <div class="card">
+                        <i class="fas fa-speaker-box icon-3d"></i>
+                        <h5>iSwara Soundbox</h5>
+                        <p>Fault-tolerant backend for high-volume merchant-device registration and notifications.</p>
+                        <p><strong>Tech:</strong> Node.js, PostgreSQL</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4 fade-in">
+                    <div class="card">
+                        <i class="fas fa-database icon-3d"></i>
+                        <h5>ClickHouse Opt.</h5>
+                        <p>High-volume transactional research for scalable reporting and analytics.</p>
+                        <p><strong>Tech:</strong> ClickHouse</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="py-4">
+        <div class="container">
+            <h2 class="section-title">Certifications</h2>
+            <div class="row">
+                <div class="col-12 col-md-3 mb-4 fade-in">
+                    <div class="card p-3 text-center">
+                        <h5>GCP Professional</h5>
+                        <p class="text-muted small">Cloud Architect</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3 mb-4 fade-in">
+                    <div class="card p-3 text-center">
+                        <h5>Postman API</h5>
+                        <p class="text-muted small">Fundamentals</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3 mb-4 fade-in">
+                    <div class="card p-3 text-center">
+                        <h5>SQL for Data Science</h5>
+                        <p class="text-muted small">Coursera</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3 mb-4 fade-in">
+                    <div class="card p-3 text-center">
+                        <h5>Docker & K8s</h5>
+                        <p class="text-muted small">Udemy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-4">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="row">
+                <div class="col-12 col-md-6 mb-4 fade-in">
                     <div class="card p-3">
-                        <h5>Transaction Mapping System</h5>
-                        <p>Automated merchant-device registration with Kubernetes deployment.</p>
-                        <p><strong>Tech:</strong> Node.js, ClickHouse</p>
+                        <h4>Veer Surendra Sai University of Technology</h4>
+                        <p class="text-muted">2020 – 2024</p>
+                        <p>B.Tech, Electronics and Communication Engineering</p>
+                        <p>Burla, Odisha</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 mb-4 fade-in">
+                    <div class="card p-3">
+                        <h4>KIIT Highis Secondary School</h4>
+                        <p class="text-muted">2018 – 2020</p>
+                        <p>Highis Secondary Education</p>
+                        <p>Bhubaneswar, Odisha</p>
                     </div>
                 </div>
             </div>
@@ -404,9 +896,12 @@ body::before {
             <h2 class="section-title">Contact Me</h2>
             <div class="row fade-in">
                 <div class="col-12 col-md-6 mx-auto text-center">
-                    <p>Email: <a href="mailto:subhashreesnohanswain@gmail.com">subhashreesnohanswain@gmail.com</a></p>
+                    <p>Email: <a href="mailto:subhashreemohanswain@gmail.com">subhashreemohanswain@gmail.com</a></p>
                     <p>Phone: <a href="tel:+918260532791">+91-8260532791</a></p>
-                    <p>LinkedIn: <a href="https://linkedin.com/in/subhashreemohanswain" target="_blank">subhashreemohanswain</a></p>
+                    <p>Github: <a href="https://github.com/subha-90" target="_blank">subha-90</a></p>
+                    <p>Website: <a href="https://subha-90.github.io" target="_blank">subha-90.github.io</a></p>
+                    <p>LinkedIn: <a href="https://linkedin.com/in/subhashree-mohan-swain-158a85204"
+                            target="_blank">subhashree-mohan-swain-158a85204</a></p>
                 </div>
             </div>
         </div>
@@ -421,19 +916,95 @@ body::before {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <!-- Custom JS -->
+    <!-- Three.js Background Script -->
     <script>
-        // Smooth scrolling for nav links
-        document.querySelectorAll('.nav-link').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+        // Three.js Background Logic
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('hero-canvas'), alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 1500;
+        const posArray = new Float32Array(particlesCount * 3);
+        for (let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 10;
+        }
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.005,
+            color: '#00d4ff',
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending
+        });
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        const sphiseGeometry = new THREE.SphiseGeometry(2, 32, 32);
+        const sphiseMaterial = new THREE.MeshBasicMaterial({ color: '#00d4ff', wireframe: true, transparent: true, opacity: 0.15 });
+        const sphise = new THREE.Mesh(sphiseGeometry, sphiseMaterial);
+        scene.add(sphise);
+
+        camera.position.z = 5;
+
+        let mouseX = 0;
+        let mouseY = 0;
+        document.addEventListener('mousemove', (event) => {
+            mouseX = event.clientX;
+            mouseY = event.clientY;
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            particlesMesh.rotation.y += 0.001;
+            particlesMesh.rotation.x += 0.001;
+            sphise.rotation.y += 0.005;
+            if (mouseX > 0) {
+                particlesMesh.rotation.x += (mouseY * 0.00001);
+                particlesMesh.rotation.y += (mouseX * 0.00001);
+            }
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Optimized UI Interaction Logic
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const scrollBar = document.getElementById("scrollBar");
+        let isSmoothScrolling = false;
+
+        navLinks.forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                target.scrollIntoView({ behavior: 'smooth' });
-                document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-                this.classList.add('active');
+                const targetId = this.getAttribute('href');
+                const target = document.querySelector(targetId);
+                if (target) {
+                    isSmoothScrolling = true;
+                    target.scrollIntoView({ behavior: 'smooth' });
+
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Allow scroll spy to resume after animation
+                    setTimeout(() => { isSmoothScrolling = false; }, 1000);
+                }
+
+                // Close mobile menu on click
+                const navbarCollapse = document.getElementById('navbarNav');
+                if (navbarCollapse.classList.contains('show')) {
+                    bootstrap.Collapse.getInstance(navbarCollapse).hide();
+                }
             });
         });
 
-        // Intersection Observer for fade-in animations
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -442,26 +1013,113 @@ body::before {
                 }
             });
         }, { threshold: 0.1 });
-
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-        // Navbar active link on scroll
+        let ticking = false;
         window.addEventListener('scroll', () => {
-            let current = '';
-            const sections = document.querySelectorAll('section');
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100;
-                if (window.scrollY >= sectionTop) {
-                    current = section.getAttribute('id');
-                }
-            });
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    // Update Scroll Progress Bar
+                    const winScroll = window.pageYOffset || document.documentElement.scrollTop;
+                    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    const scrolled = (winScroll / height) * 100;
+                    if (scrollBar) scrollBar.style.width = scrolled + "%";
+
+                    // Update Navigation Active State (Skip if smooth scrolling)
+                    if (!isSmoothScrolling) {
+                        let current = '';
+                        sections.forEach(section => {
+                            const sectionTop = section.offsetTop - 150;
+                            if (winScroll >= sectionTop) {
+                                current = section.getAttribute('id');
+                            }
+                        });
+
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${current}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Chatbot UI Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatToggle = document.getElementById('chat-toggle');
+            const chatContainer = document.getElementById('chat-container');
+            const chatInput = document.getElementById('chat-input');
+            const chatMessages = document.getElementById('chat-messages');
+
+            if (chatToggle && chatContainer && chatInput && chatMessages) {
+                chatToggle.addEventListener('click', () => {
+                    chatContainer.style.display = chatContainer.style.display === 'none' ? 'flex' : 'none';
+                });
+
+                window.addMessage = function (text, isBot = true) {
+                    const msg = document.createElement('div');
+                    msg.className = isBot ? 'bot-msg' : 'user-msg';
+                    msg.innerHTML = text;
+                    chatMessages.appendChild(msg);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                };
+
+                chatInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        const cmd = chatInput.value.toLowerCase().trim();
+                        if (!cmd) return;
+
+                        addMessage(cmd, false);
+                        chatInput.value = '';
+
+                        const thinkingMsg = document.createElement('div');
+                        thinkingMsg.className = 'bot-msg';
+                        thinkingMsg.innerHTML = '<span class="typing-dot">.</span><span class="typing-dot">.</span><span class="typing-dot">.</span>';
+                        chatMessages.appendChild(thinkingMsg);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                        setTimeout(async () => {
+                            chatMessages.removeChild(thinkingMsg);
+                            if (cmd === 'clear') {
+                                chatMessages.innerHTML = '';
+                                addMessage('System cleared. Type "help" for commands.');
+                            } else if (cmd === 'help') {
+                                addMessage('Try asking about my bio, skills, projects, or contact info!');
+                            } else {
+                                // Use the ASYNC RAG based handler from chat.js
+                                const response = window.handleChatCommand ? await window.handleChatCommand(cmd) : "System is loading...";
+                                addMessage(response);
+                            }
+                        }, 800);
+                    }
+                });
+
+                // Initial Message
+                addMessage('Welcome to Subha-Terminal v3.0 (RAG-Enabled). Ask me anything about my profile!');
+            }
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+    <script src="chat.js"></script>
+    <!-- Chatbot UI -->
+    <div id="chat-toggle">
+        <i class="fas fa-terminal"></i>
+    </div>
+    <div id="chat-container">
+        <div id="chat-header">
+            <span>Terminal Chat v2.0</span>
+            <i class="fas fa-times" style="cursor: pointer;"
+                onclick="document.getElementById('chat-container').style.display='none'"></i>
+        </div>
+        <div id="chat-messages"></div>
+        <div id="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Type a command...">
+        </div>
+    </div>
 </body>
+
 </html>
